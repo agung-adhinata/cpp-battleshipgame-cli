@@ -26,7 +26,7 @@ string BOARD_SHIP = "O|";
 string BOARD_SHIP_ADD = "+|";
 string BOARD_BLANKSPACE = " .";
 int GLOBAL_CURSOR_POS[2] = {0, 0};
-// membersihkan layar, dikarenakan masalah bug ketika mengugnakan getch() dan system('cls') secara bersamaan
+// membersihkan layar, dikarenakan masalah bug ketika mengugnakan _getch() dan system('cls') secara bersamaan
 void clearScreen() {
     cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }
@@ -315,7 +315,7 @@ void gameSetup() {
     getline(cin >> ws, player2.name);
 
     cout << "Pemain 1 mendapat giliran untuk meletakkan kapalnya\n";
-    getch();
+    _getch();
     for (int i = 0; i < ship_list.size(); i++) {
         isInputDone = false;
         GLOBAL_CURSOR_POS[0] = 0, GLOBAL_CURSOR_POS[1] = 0;
@@ -324,7 +324,7 @@ void gameSetup() {
         while (true) {
             displayPlacementBoard(player1, newship);
             cout << "\nKapal saat ini: " << newship.name << "\nSisa kapal yang belum disiapkan: " << ship_list.size() - i << "\n";
-            pilihan = getch();
+            pilihan = _getch();
             isInputDone = cursorPlacementMovement(pilihan, player1, newship);
             if (isInputDone) {
                 break;
@@ -334,7 +334,7 @@ void gameSetup() {
     }
     clearScreen();
     cout << "Pemain 2 mendapat giliran untuk meletakkan kapalnya\n";
-    getch();
+    _getch();
     for (int i = 0; i < ship_list.size(); i++) {
         isInputDone = false;
         GLOBAL_CURSOR_POS[0] = 0, GLOBAL_CURSOR_POS[1] = 0;
@@ -343,7 +343,7 @@ void gameSetup() {
         while (true) {
             displayPlacementBoard(player2, newship);
             cout << "\nKapal saat ini: " << newship.name << "\nSisa kapal yang belum disiapkan: " << ship_list.size() - i << "\n";
-            pilihan = getch();
+            pilihan = _getch();
             isInputDone = cursorPlacementMovement(pilihan, player2, newship);
             if (isInputDone) {
                 break;
@@ -353,7 +353,7 @@ void gameSetup() {
     }
     clearScreen();
     cout << "tekan tombol apa pun untuk meulai permainan\n";
-    getch();
+    _getch();
     return gamePlay();
 }
 
@@ -372,7 +372,7 @@ void gamePlay() {
         }
         clearScreen();
         cout << "Giliran " << pl_curr->name << ", turn ke - " << int(turn / 2) << "\n";
-        getch();
+        _getch();
         // current player turn gameplay
         while (true) {
             isInputDone = false;
@@ -382,7 +382,7 @@ void gamePlay() {
                 clearScreen();
                 cout << "Pemain " << pl_opponent->name << " Telah kalah!!\n selamat kepada Pemain " << pl_curr->name << " atas kemenangannya!!!\n";
                 Sleep(2000);
-                getch();
+                _getch();
                 return;
             }
 
@@ -390,7 +390,7 @@ void gamePlay() {
             displayCoordinateBoard(*pl_curr, *pl_opponent);
             cout << "koordinat kursor yang telah ditekan : ";
             pl_curr->coor.printItem();
-            pilihan = getch();
+            pilihan = _getch();
             if (pilihan == 'q') return;
             isInputDone = cursorMovement(pilihan, *pl_curr);
             if (isInputDone) {
